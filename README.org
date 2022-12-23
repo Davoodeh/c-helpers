@@ -1,0 +1,57 @@
+* What are these?
+A series of C macro headers for easier debug or development of prototypes on
+Arduino devices.
+
+These "dynamic module"s are mostly simple macro functions coupled with some
+global definitions.
+
+These are just test modules developed for my personal use. I just use them to
+make testing Arduino devices easier. There are bugs and the codes is not
+conventional (yes, ~*.h~ does more than defining signiture, I wrote the body of
+the functions and a thousand more sins).
+
+Morever, these files are really old and I haven't looked at them for a while
+because they seem to work just fine as of 2022 (tested with ESP-32, ESP-8266,
+Arduino Nano(?) or maybe not... cannot exactly remember, it was early 2022).
+
+The files have should have documentation themselves.
+
+These are the original files of the repository worth checking out:
+1. ~debug.h~: Serial.print, but conditionally
+2. ~network.h~: enables WiFi OR Ethernet connections without a need to change
+   the code. The basic setup is 3 lines with some macro assignments.
+3. ~request.h~: enables connection with MQTT OR HTTP server without a need to
+   change the code. The basic setup is 3 lines with some macro assignments.
+
+* TODO?
+
+As I rarely write C, I may or may not add to these helpers or improve on them.
+One that I am especially interested in is header for "multi-dimensional
+homogeneous array" manipulation. I even have the formula down here in one of my
+early notes, but I never finished it.
+
+#+begin_quote
+For a homogenous C array to be indexed like a $|D|$ (the size of $D$)
+dimensional list in modern languages, the index must be calculated with the
+following formula.
+In the formula below:
+- $i$ and $j$ both start from 0
+- $D$ is another array holding the dimension status of which we aim to simulate
+- $|I| = |D|$.
+
+As an example, $D$ for ~List[2][3][4]~, is $[2, 3, 4]$ and
+$I$ for the element at ~[1, 2, 3]~ is $[1, 2, 3]$.
+
+\sum_{i=0}^{|D|}(I_{i}\Pi_{j=i+1}^{|D|}D_{j})
+
+If implemented as I have in mind, this can help the developer represent a
+single homogenous array in any dimensions (by using various $D$) and indexed in
+a pretty modern fashion (using different $I$). Note that an array can be
+represented with multiple $D$s with one initial definition of the array.
+
+Using this formula and a couple of well written macroes, one can define such
+arrays with 0 overhead, meaning $D$ and $I$ don't have to be real arrays, they
+can be baked inside some macroes or eliminated depending on the implementation.
+Moreover, the calculation of the formula can be passed to the compile-time in
+most of the cases.
+#+end_quote
